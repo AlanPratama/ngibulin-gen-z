@@ -2,11 +2,13 @@ import html2canvas from "html2canvas";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { imageWrapper } from "../../public/index";
+import { Loading } from "./components/Loading";
 
 export const ResultPage = () => {
   const [randomImage, setRandomImage] = useState(
     Math.floor(Math.random() * 26)
   );
+  const [loadedImage, setLoadedImage] = useState(false);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -36,9 +38,20 @@ export const ResultPage = () => {
     setRandomImage(Math.floor(Math.random() * 26));
   };
 
+  const changeLoadedImage = () => {
+    setLoadedImage(true);
+  };
+
   return (
     <>
-      <div className="flex flex-col justify-center items-center gap-8 min-h-screen">
+      {!loadedImage && (
+        <Loading/>
+      )}
+      <div
+        className={`${
+          !loadedImage ? "hidden" : "flex"
+        } flex-col justify-center items-center gap-8 min-h-screen`}
+      >
         <div>
           <div className="grid place-items-center">
             <p className="inline-block px-3 py-2 mb-4 text-xs font-semibold tracking-wider text-white uppercase rounded-full bg-primary">
@@ -53,6 +66,7 @@ export const ResultPage = () => {
             <img
               src={imageWrapper.randomImages[randomImage]}
               alt={description}
+              onLoad={changeLoadedImage}
               className="w-full h-full object-cover"
             />
 
@@ -61,7 +75,7 @@ export const ResultPage = () => {
                 <p className="text-base md:text-lg text-justify">
                   {description}
                 </p>
-                <p className="text-end text-xl md:text-2xl font-medium text-black uppercase">
+                <p className="font-impact text-end text-xl md:text-2xl text-black uppercase">
                   {media}
                 </p>
               </div>
@@ -85,7 +99,7 @@ export const ResultPage = () => {
           </button>
           <button
             type="button"
-            onClick={() => goHome()}
+            onClick={goHome}
             className="w-full items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md md:w-auto bg-primary hover:bg-neutral-950 focus:shadow-outline focus:outline-none"
           >
             Kembali

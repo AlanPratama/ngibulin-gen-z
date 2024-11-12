@@ -8,9 +8,10 @@ export default {
     extend: {
       colors: {
         primary: '#010d01',
-        // secondary: '#00FF00',
-        // tertiary: '#0000FF',
       },
+      fontFamily: {
+        impact: ['Impact', 'sans-serif']
+      }
     },
   },
   plugins: [],

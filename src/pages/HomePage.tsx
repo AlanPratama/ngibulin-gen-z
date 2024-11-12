@@ -9,7 +9,6 @@ export const HomePage = () => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("asasa");
 
     if (!description) setErrMsg("Masukkan deskripsi dulu!");
     else if(description.split('').length > 300) setErrMsg("Maksimal 300 karakter!");
@@ -67,10 +66,8 @@ export const HomePage = () => {
         >
           <div>
             <div className="flex justify-between items-center mb-0.5">
-            {errMsg && (
-              <p className="text-red-500 font-bold capitalize text-center w-full">{errMsg}</p>
-            )}
-            <p className="text-sm text-neutral-600 text-end w-full">{description.split('').length}/300</p>
+              <p className="text-red-500 font-bold capitalize text-start">{errMsg}</p>
+            <p className="text-sm text-neutral-600 text-end">{description.split('').length}/300</p>
             </div>
             <input
               onChange={(e) => setDescription(e.target.value)}
